@@ -1,0 +1,116 @@
+﻿@model IEnumerable<MediaPlayerMVC.Models.UploadFileModel>
+@{
+    ViewData["Title"] = "Upload File";
+
+}
+
+
+<form method="post" enctype="multipart/form-data" asp-controller="FileUpload" asp-action="Index">
+
+    <table class="table border">
+        <thead><h4>Upload File</h4></thead>
+        <tr>
+            <th>
+                <div class="form-group">
+                    <div class="col-md-10">
+
+                        <input type="file" class="form-control-file" name="file" accept="audio/*,video/*" required />
+                    </div>
+                </div>
+            </th>
+            <th>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <button class="btn btn-primary" type="submit" value="Upload">Upload</button>
+                    </div>
+                </div>
+
+            </th>
+        </tr>
+    </table>
+</form>
+
+
+
+
+    
+<h5 style="color:red">@TempData["message"]</h5>
+    
+
+<hr />
+
+<div style="width: 100%;">
+
+    <div style="float:left; width: 40%">
+        <table class="table table-striped ">
+            <tr>
+                <th colspan="2">Audio Files</th>
+            </tr>
+            @foreach (var item in ViewBag.AudioList)
+            {
+
+                <tr>
+                    <td>
+                        @item.name
+
+
+                    </td>
+                    <td>
+                        <audio controls>
+
+                            <source src=@item.link type="audio/mp3" />
+
+                        </audio>
+                    </td>
+                </tr>
+
+            }
+
+
+
+        </table>
+
+    </div>
+    <div style="float:right; width:60%">
+        <table class="table table-striped ">
+            <tr>
+                <th colspan="2">Video Files</th>
+            </tr>
+            @foreach (var item in ViewBag.VideoList)
+            {
+
+                <tr>
+                    <td id="name">
+                        @item.name
+
+
+                    </td>
+                    <td>
+                        <video width="370" height="240" controls>
+
+                            <source src=@item.link type="video/mp4" />
+
+                        </video>
+                    </td>
+                </tr>
+
+            }
+
+
+
+        </table>
+    </div>
+</div>
+<div style="clear:both"></div>
+
+
+
+
+
+
+
+
+
+
+
+

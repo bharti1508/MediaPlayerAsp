@@ -19,8 +19,8 @@ namespace MediaPlayerMVC.Controllers
 
         IFirebaseConfig config = new FirebaseConfig
         {
-            AuthSecret = "njOwVqAgVmgIrxLO8HrDK92CZFiLetuEyuVReDiU",
-            BasePath = "https://mediaplayerasp.firebaseio.com/"
+            AuthSecret = "c3jEy9HFaQDxohkPvy9pXt4ss7Pil29qZLNx7TN3",
+            BasePath = "https://mediaplayer-46757.firebaseio.com/"
         };
 
         IFirebaseClient client;
@@ -39,15 +39,36 @@ namespace MediaPlayerMVC.Controllers
         [HttpPost]
         public IActionResult Index(RegistrationModel registrationModel)
         {
-            try
-            {
-                AddUserToFirebase(registrationModel);
-                ModelState.AddModelError(string.Empty, "Added Succesfully");
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError(string.Empty, ex.Message);
+            client = new FireSharp.FirebaseClient(config);
+            FirebaseResponse response = client.Get("Users");
 
+            dynamic data = JsonConvert.DeserializeObject<dynamic>(response.Body);
+            var list = new List<RegistrationModel>();
+            foreach (var item in data)
+            {
+
+                var uname=JsonConvert.DeserializeObject<RegistrationModel>(((JProperty)item).Value.ToString()).Username;
+                list.Add(JsonConvert.DeserializeObject<RegistrationModel>(((JProperty)item).Value.ToString()));
+
+                if (uname == registrationModel.Username)
+                {
+                    TempData["msg"] = "Username already exists! Try with another username";
+                    return Redirect(Url.Action("Index", "Registration"));
+                }
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    AddUserToFirebase(registrationModel);
+                 
+                    return Redirect(Url.Action("Index", "Login"));
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError(string.Empty, ex.Message);
+
+                }
             }
 
             return View(); 
@@ -59,7 +80,11 @@ namespace MediaPlayerMVC.Controllers
             var data = registrationModel;
             PushResponse response = client.Push("Users/", data);
             data.Key = response.Result.name;
+            TempData["key"] = data.Key;
+            
             SetResponse setResponse = client.Set("Users/" + data.Key, data);
+
+            
         }
     }
 }

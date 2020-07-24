@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -18,6 +19,8 @@ namespace MediaPlayerMVC.Models
         [DataType(DataType.EmailAddress)]
         [Display(Name = "Enter Username")]
         public string Username { get; set; }
+
+        
 
         [Required]
         //[StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 10)]

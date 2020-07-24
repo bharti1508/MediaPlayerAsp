@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -18,21 +19,65 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
+
+                    @if (TempData["storeUsername"] == null)
+                            {
+                               
+                              
+        
+                            <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
+
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Registration" asp-action="Index">Register</a>
-                        </li>
+
+
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Display" asp-action="Index">Display</a>
                         </li>
 
-                        <li class="nav-item">
+                
+
+                        <li class="nav-item glyphicon glyphicon-user">
+                            <a class="nav-link text-light " asp-area="" asp-controller="Registration" asp-action="Index">Register</a>
+                        </li>
+
+
+                        <li class="nav-item glyphicon glyphicon-log-in">
                             <a class="nav-link text-light" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
                         </li>
                     </ul>
+                    }
+
+                    else
+                    {
+                        <ul class="nav navbar-nav ml-auto ">
+                            <li class="nav-item text-light">
+
+
+                                Welcome @TempData["name"]!<br />
+                                @TempData["storeUsername"]
+                               
+                            </li>
+                            &nbsp;&nbsp;
+                            <li class="nav-item">
+                                <button class="btn btn-danger" onclick="location.href='@Url.Action("Index", "Login")'" > Logout
+                              </button>
+                              
+                            </li>
+                        </ul>
+
+                    }
+
+
+
+
+
+
+
+
+
+
                 </div>
             </div>
             </nav>

@@ -33,12 +33,15 @@ namespace MediaPlayerMVC
               options.ClientId = googleAuthNSection["ClientId"];
               options.ClientSecret = googleAuthNSection["ClientSecret"];
           });
+            services.AddMvc();
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(60);
+            });
+            services.AddRazorPages().AddRazorRuntimeCompilation();
+
         }
 
-      // dotnet user-secrets set "Authentication:Google:ClientId" "1080331818330-dt0l5b3gvi19eogfeba9h5e0u73hh3mr.apps.googleusercontent.com"
-//dotnet user-secrets set "Authentication:Google:ClientSecret" "F9N81FVOan1mi_a8RkmqdpUe"
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+     
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -51,6 +54,7 @@ namespace MediaPlayerMVC
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

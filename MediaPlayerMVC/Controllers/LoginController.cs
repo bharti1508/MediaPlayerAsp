@@ -14,8 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 using FireSharp.Config;
 using FireSharp.Interfaces;
 using FireSharp.Response;
-using MediaPlayerMVC.Models;
-using Microsoft.AspNetCore.Mvc;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -25,8 +24,8 @@ namespace MediaPlayerMVC.Controllers
     {
         IFirebaseConfig config = new FirebaseConfig
         {
-            AuthSecret = "njOwVqAgVmgIrxLO8HrDK92CZFiLetuEyuVReDiU",
-            BasePath = "https://mediaplayerasp.firebaseio.com/"
+            AuthSecret = "c3jEy9HFaQDxohkPvy9pXt4ss7Pil29qZLNx7TN3",
+            BasePath = "https://mediaplayer-46757.firebaseio.com/"
         };
 
         IFirebaseClient client;
@@ -40,39 +39,64 @@ namespace MediaPlayerMVC.Controllers
       
 
         [HttpPost]
-        public async Task<IActionResult> Index([Bind]LoginModel model)
+        public  ActionResult Index([Bind]LoginModel model)
         {
+
             client = new FireSharp.FirebaseClient(config);
             FirebaseResponse response = client.Get("Users");
             dynamic data = JsonConvert.DeserializeObject<dynamic>(response.Body);
 
-            Console.WriteLine(model.Username);
-            Console.WriteLine(model.Password);
+            bool valid = false;
+
 
             
-            /*if (ModelState.IsValid)
+            foreach (var item in data)
             {
-                Console.WriteLine("Successful Login username="+ model.Username);
+                var uname = JsonConvert.DeserializeObject<RegistrationModel>(((JProperty)item).Value.ToString()).Username;
+                var pass = JsonConvert.DeserializeObject<RegistrationModel>(((JProperty)item).Value.ToString()).Password;
 
-                TempData["msg"] = "Successful Login";
+                if(uname == model.Username && pass == model.Password)
+                {
+                    valid = true;
+                    model.IsSignedIn = "true";
+                }
+                
+                
+              
+            }
+            
+            if (valid == true)
+            {
+                HttpContext.Session.SetString("IsSignedIn", "true");
+               
+                TempData["storeUsername"] = model.Username;
+                TempData["user"] = model.Username;
+                return RedirectToAction("Index", "UploadFile");
             }
             else
-                TempData["msg"] = "Username and password is invalid";
-            */
+            {
+                TempData["msg"] = "Username or password is incorrect. Try again";
+                return Redirect(Url.Action("Index", "Login"));
+            }
+
 
             return View();
         }
+        public IActionResult UploadFile()
+        {
+          
 
-        /* [HttpPost]
-       [AllowAnonymous]
-       [ValidateAntiForgeryToken]
-       public IActionResult ExternalLogin(string provider, string returnUrl = null)
-       {
-           // Request a redirect to the external login provider.
-           var redirectUrl = Url.Action( new { returnUrl });
-           var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
-           return Challenge(properties, provider);
-       }*/
+            ViewBag.isSignedIn = "true";
+            return View();
+        }
+
+
+
+        public IActionResult Admin()
+        {
+
+            return View();
+        }
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

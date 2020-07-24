@@ -19,8 +19,8 @@ namespace MediaPlayerMVC.Controllers
 
         IFirebaseConfig config = new FirebaseConfig
         {
-            AuthSecret = "njOwVqAgVmgIrxLO8HrDK92CZFiLetuEyuVReDiU",
-            BasePath = "https://mediaplayerasp.firebaseio.com/"
+            AuthSecret = "c3jEy9HFaQDxohkPvy9pXt4ss7Pil29qZLNx7TN3",
+            BasePath = "https://mediaplayer-46757.firebaseio.com/"
         };
 
         IFirebaseClient client;
@@ -35,7 +35,7 @@ namespace MediaPlayerMVC.Controllers
             var list = new List<RegistrationModel>();
             foreach (var item in data)
             {
-                Console.WriteLine(JsonConvert.DeserializeObject<RegistrationModel>(((JProperty)item).Value.ToString()).Name);
+                //Console.WriteLine(JsonConvert.DeserializeObject<RegistrationModel>(((JProperty)item).Value.ToString()).Name);
                 list.Add(JsonConvert.DeserializeObject<RegistrationModel>(((JProperty)item).Value.ToString()));
 
             }

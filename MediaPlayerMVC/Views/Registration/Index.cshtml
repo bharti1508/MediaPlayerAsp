@@ -1,10 +1,17 @@
 ﻿@model RegistrationModel
 @{
-    ViewData["Title"] = "Resgistration";
+    ViewData["Title"] = "Registration";
 }
 
 
-<h3>Login Page</h3>
+<h3>Registration Page</h3>
+<br />
+@{<b></b>
+    if (TempData["msg"] != null)
+    {
+        <h5 style="color:red">@TempData["msg"]</h5>
+    }
+}
 <div class="row">
     <div class="col-md-6">
         <form method="post">
@@ -21,8 +28,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="Password" required></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
+                <input asp-for="Password" class="form-control" minlength="6" title="Minimum 6 characters"/>
+                <span asp-validation-for="Password"  class="text-danger"></span>
             </div>
 
             <button type="submit" class="btn btn-primary">Login</button>

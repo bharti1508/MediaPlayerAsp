@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Bharti\\source\\repos\\MediaPlayerMVC\\MediaPlayerMVC\\MediaPlayerMVC.csproj": {}
+    "C:\\Users\\Bharti\\source\\repos\\MediaPlayerAsp\\MediaPlayerMVC\\MediaPlayerMVC.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Bharti\\source\\repos\\MediaPlayerMVC\\MediaPlayerMVC\\MediaPlayerMVC.csproj": {
+    "C:\\Users\\Bharti\\source\\repos\\MediaPlayerAsp\\MediaPlayerMVC\\MediaPlayerMVC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Bharti\\source\\repos\\MediaPlayerMVC\\MediaPlayerMVC\\MediaPlayerMVC.csproj",
+        "projectUniqueName": "C:\\Users\\Bharti\\source\\repos\\MediaPlayerAsp\\MediaPlayerMVC\\MediaPlayerMVC.csproj",
         "projectName": "MediaPlayerMVC",
-        "projectPath": "C:\\Users\\Bharti\\source\\repos\\MediaPlayerMVC\\MediaPlayerMVC\\MediaPlayerMVC.csproj",
+        "projectPath": "C:\\Users\\Bharti\\source\\repos\\MediaPlayerAsp\\MediaPlayerMVC\\MediaPlayerMVC.csproj",
         "packagesPath": "C:\\Users\\Bharti\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Bharti\\source\\repos\\MediaPlayerMVC\\MediaPlayerMVC\\obj\\",
+        "outputPath": "C:\\Users\\Bharti\\source\\repos\\MediaPlayerAsp\\MediaPlayerMVC\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Bharti\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -46,6 +46,10 @@
               "target": "Package",
               "version": "[4.0.4, )"
             },
+            "FirebaseStorage.net": {
+              "target": "Package",
+              "version": "[1.0.3, )"
+            },
             "Microsoft.AspNetCore.Authentication.Google": {
               "target": "Package",
               "version": "[3.1.6, )"
@@ -55,6 +59,10 @@
               "version": "[3.1.6, )"
             },
             "Microsoft.AspNetCore.Razor.Runtime": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Session": {
               "target": "Package",
               "version": "[2.2.0, )"
             },

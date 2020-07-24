@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Permissions;
@@ -19,6 +21,11 @@ namespace MediaPlayerMVC.Models
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
+
+
+        [TempData]
+        [DefaultValue("false")]
+        public string IsSignedIn { get; set; }
 
         public string ExternalUserName { get; set; }
         public string Name { get; set; }
